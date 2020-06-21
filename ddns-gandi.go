@@ -55,6 +55,9 @@ func main() {
 	for _, addr := range addrs {
 		slices := strings.Split(addr.String(), "/")
 		ip := net.ParseIP(slices[0])
+                if !ip.IsGlobalUnicast() {
+                    continue
+                }
 		if ip.To4() != nil {
 			ipv4 = slices[0]
 		} else if 16 == len(ip) {
